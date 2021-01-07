@@ -38,23 +38,6 @@ namespace motiveFile
             InitializeComponent();
         }
 
-        private void textBox_KeyDown( object sender, KeyEventArgs e )
-        {
-            if ( altKeyDown )
-            {
-                altKeyDown = false;
-                if ( e.SystemKey == Key.D )
-                {
-                    textBox.SelectAll();
-                }
-            }
-
-            if ( e.SystemKey == Key.LeftAlt || e.SystemKey == Key.RightAlt )
-            {
-                altKeyDown = true;
-            }
-        }
-
         private void Window_Loaded( object sender, RoutedEventArgs e )
         {
             var initialPath = defaultPath;
@@ -74,7 +57,8 @@ namespace motiveFile
                 }
             }
 
-            UpdateView( initialPath ); 
+            UpdateView( initialPath );
+            listView.Focus();
         }
 
         private void UpdateView( string newPath )
@@ -207,6 +191,79 @@ namespace motiveFile
             }
             finally
             {
+            }
+        }
+
+        private void listView_PreviewKeyDown( object sender, KeyEventArgs e )
+        {
+            if( e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Right )
+            {
+                if ( listView.SelectedItems.Count > 0 )
+                {
+                    var lvi0 = listView.SelectedItems[ 0 ] as InfoItem;
+                    
+                    if ( lvi0.IsTraversible )
+                    {
+                        UpdateView( lvi0.FullName );
+                    }
+                    else if ( e.Key == Key.Enter || e.Key == Key.Return )
+                    {
+                        foreach ( InfoItem lvi in listView.SelectedItems )
+                        {
+                            if ( !lvi.IsTraversible )
+                            {
+                                System.Diagnostics.Process.Start( lvi.FullName );
+                            }
+                        }
+                    }
+                }
+            }
+            else if ( e.Key == Key.Back || e.Key == Key.Left )
+            {
+                var path = listView.Tag as string;
+                var parent = Directory.GetParent( path );
+                if ( parent != null )
+                {
+                    UpdateView( parent.FullName );
+                }
+                else
+                {
+                    // Get roots?
+                }
+            }
+            else if ( altKeyDown )
+            {
+                altKeyDown = false;
+                if ( e.SystemKey == Key.D )
+                {
+                    textBox.Focus();
+                    textBox.SelectAll();
+                }
+            }
+
+            if ( e.SystemKey == Key.LeftAlt || e.SystemKey == Key.RightAlt )
+            {
+                altKeyDown = true;
+            }
+        }
+
+        private void textBox_PreviewKeyDown( object sender, KeyEventArgs e )
+        {
+            if ( altKeyDown )
+            {
+                altKeyDown = false;
+                if ( e.SystemKey == Key.D )
+                {
+                    textBox.SelectAll();
+                }
+            }
+            else if ( e.SystemKey == Key.LeftAlt || e.SystemKey == Key.RightAlt )
+            {
+                altKeyDown = true;
+            }
+            else if ( e.Key == Key.Down )
+            {
+                listView.Focus();
             }
         }
     }

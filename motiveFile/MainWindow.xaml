@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="motiveFile" Height="700" Width="600" Loaded="Window_Loaded">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Stretch" Height="23" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top" KeyDown="textBox_KeyDown"/>
-        <ListView x:Name="listView" Margin="0,23,0,0">
+        <TextBox x:Name="textBox" HorizontalAlignment="Stretch" Height="23" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top" PreviewKeyDown="textBox_PreviewKeyDown"/>
+        <ListView x:Name="listView" Margin="0,23,0,0" PreviewKeyDown="listView_PreviewKeyDown">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>

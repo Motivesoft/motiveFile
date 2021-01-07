@@ -25,7 +25,14 @@ namespace motiveFile
         {
             get;
         }
-
+        public abstract string FullName
+        {
+            get;
+        }
+        public abstract bool IsTraversible
+        {
+            get;
+        }
         protected string FormatDateTime( DateTime dateTime )
         {
             return $"{dateTime.ToShortDateString()} {dateTime.ToShortTimeString()}";
@@ -74,6 +81,22 @@ namespace motiveFile
             }
         }
 
+        public override string FullName
+        {
+            get
+            {
+                return Info.FullName;
+            }
+        }
+
+        public override bool IsTraversible
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public DirectoryInfoItem( string directory )
         {
             Info = new DirectoryInfo( directory );
@@ -115,6 +138,22 @@ namespace motiveFile
             {
                 // TODO finish this
                 return Info.Extension;
+            }
+        }
+
+        public override string FullName
+        {
+            get
+            {
+                return Info.FullName;
+            }
+        }
+
+        public override bool IsTraversible
+        {
+            get
+            {
+                return false;
             }
         }
 

@@ -261,8 +261,8 @@ namespace motiveFile
     {
         private readonly DriveInfo Info;
 
-        public override string Name => Info.Name;
-        public override string FullName => Info.IsReady ? Info.VolumeLabel : Info.Name;
+        public override string Name => Info.IsReady && !string.IsNullOrEmpty( Info.VolumeLabel) ? $"{Info.Name} ({Info.VolumeLabel})" : Info.Name;
+        public override string FullName => Info.Name;
         public override string Size => Info.IsReady ? $"{Info.TotalSize}" : "";
         public override string Type => Info.DriveType.ToString();
         public override long SortableSize => Info.IsReady ? Info.TotalSize : 0;

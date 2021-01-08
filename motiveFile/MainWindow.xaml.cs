@@ -266,7 +266,7 @@ namespace motiveFile
                         }
                     }
 
-                    string header = headerClicked.Content as string;
+                    string header = headerClicked.Name;
                     Sort( header, direction );
 
                     if ( direction == ListSortDirection.Ascending )

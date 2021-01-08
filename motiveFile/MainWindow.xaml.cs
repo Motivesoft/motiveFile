@@ -133,8 +133,6 @@ namespace motiveFile
                 var focused = false;
                 //var smallIconSize = smallImageList.ImageSize;
 
-                listView.Items.Clear();
-
                 textBox.Text = path;
                 listView.Tag = path;
 

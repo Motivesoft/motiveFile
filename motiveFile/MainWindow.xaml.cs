@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -124,7 +125,7 @@ namespace motiveFile
                     }
                 }
             }
-            else if( !newPath.Equals( currentPath ) )
+            else if ( !newPath.Equals( currentPath ) )
             {
                 UpdateView( currentPath );
             }
@@ -160,12 +161,12 @@ namespace motiveFile
 
         private void listView_PreviewKeyDown( object sender, KeyEventArgs e )
         {
-            if( e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Right )
+            if ( e.Key == Key.Enter || e.Key == Key.Return || e.Key == Key.Right )
             {
                 if ( listView.SelectedItems.Count > 0 )
                 {
                     var lvi0 = listView.SelectedItems[ 0 ] as InfoItem;
-                    
+
                     if ( lvi0.IsTraversible )
                     {
                         UpdateView( lvi0.FullName );
@@ -204,8 +205,7 @@ namespace motiveFile
                     textBox.SelectAll();
                 }
             }
-
-            if ( e.SystemKey == Key.LeftAlt || e.SystemKey == Key.RightAlt )
+            else if ( e.SystemKey == Key.LeftAlt || e.SystemKey == Key.RightAlt )
             {
                 altKeyDown = true;
             }
@@ -233,6 +233,72 @@ namespace motiveFile
             {
                 UpdateView( textBox.Text );
             }
+        }
+
+
+        // Global objects
+        BindingListCollectionView blcv;
+        GridViewColumnHeader _lastHeaderClicked = null;
+        ListSortDirection _lastDirection = ListSortDirection.Ascending;
+
+
+        private void GridViewColumnHeader_Click( object sender, RoutedEventArgs e )
+        {
+            GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
+            ListSortDirection direction;
+
+            if ( headerClicked != null )
+            {
+                if ( headerClicked.Role != GridViewColumnHeaderRole.Padding )
+                {
+                    if ( headerClicked != _lastHeaderClicked )
+                    {
+                        direction = ListSortDirection.Ascending;
+                    }
+                    else
+                    {
+                        if ( _lastDirection == ListSortDirection.Ascending )
+                        {
+                            direction = ListSortDirection.Descending;
+                        }
+                        else
+                        {
+                            direction = ListSortDirection.Ascending;
+                        }
+                    }
+
+                    string header = headerClicked.Column.Header as string;
+                    //Sort( header, direction );
+
+                    if ( direction == ListSortDirection.Ascending )
+                    {
+                        headerClicked.Column.HeaderTemplate = Resources[ "HeaderTemplateArrowUp" ] as DataTemplate;
+                    }
+                    else
+                    {
+                        headerClicked.Column.HeaderTemplate = Resources[ "HeaderTemplateArrowDown" ] as DataTemplate;
+                    }
+
+                    // Remove arrow from previously sorted header
+                    if ( _lastHeaderClicked != null && _lastHeaderClicked != headerClicked )
+                    {
+                        _lastHeaderClicked.Column.HeaderTemplate = null;
+                    }
+
+                    _lastHeaderClicked = headerClicked;
+                    _lastDirection = direction;
+                }
+
+            }
+        }
+
+        // Sort code
+        private void Sort( string sortBy, ListSortDirection direction )
+        {
+            blcv.SortDescriptions.Clear();
+            SortDescription sd = new SortDescription( sortBy, direction );
+            blcv.SortDescriptions.Add( sd );
+            blcv.Refresh();
         }
     }
 }

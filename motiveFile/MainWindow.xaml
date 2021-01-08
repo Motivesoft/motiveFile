@@ -27,6 +27,20 @@
                 </TextBlock>
             </DockPanel>
         </DataTemplate>
+
+        <DataTemplate x:Key="HeaderTemplateArrowUp">
+            <DockPanel LastChildFill="True" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type GridViewColumnHeader}}}">
+                <Path x:Name="arrowUp" StrokeThickness="1" Fill="Gray" Data="M 5,10 L 15,10 L 10,5 L 5,10" DockPanel.Dock="Right" Width="20" HorizontalAlignment="Right" Margin="5,0,5,0" SnapsToDevicePixels="True"/>
+                <TextBlock Text="{Binding }" />
+            </DockPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="HeaderTemplateArrowDown">
+            <DockPanel LastChildFill="True" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type GridViewColumnHeader}}}">
+                <Path x:Name="arrowDown" StrokeThickness="1" Fill="Gray"  Data="M 5,5 L 10,10 L 15,5 L 5,5" DockPanel.Dock="Right" Width="20" HorizontalAlignment="Right" Margin="5,0,5,0" SnapsToDevicePixels="True"/>
+                <TextBlock Text="{Binding }" />
+            </DockPanel>
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -34,7 +48,9 @@
         <ListView x:Name="listView" Margin="0,23,0,0" PreviewKeyDown="listView_PreviewKeyDown">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" CellTemplate="{StaticResource cellTemplateName}"/>
+                    <GridViewColumn CellTemplate="{StaticResource cellTemplateName}">
+                        <GridViewColumnHeader Content="Name" Name="nameColumn" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                    </GridViewColumn>
                     <GridViewColumn Header="Modified date" DisplayMemberBinding="{Binding ModifiedDate}"/>
                     <GridViewColumn Header="Size" CellTemplate="{StaticResource cellTemplateSize}"/>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>

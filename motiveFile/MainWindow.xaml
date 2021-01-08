@@ -6,6 +6,19 @@
         xmlns:local="clr-namespace:motiveFile"
         mc:Ignorable="d"
         Title="motiveFile" Height="700" Width="600" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <DataTemplate x:Key="cellTemplateSize">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" TextAlignment="Right" Width="80">
+                    <TextBlock.Text>
+                        <Binding Path="Size"/>
+                    </TextBlock.Text>
+                </TextBlock>
+            </DockPanel>
+        </DataTemplate>
+    </Window.Resources>
+
     <Grid>
         <TextBox x:Name="textBox" HorizontalAlignment="Stretch" Height="23" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top" PreviewKeyDown="textBox_PreviewKeyDown"/>
         <ListView x:Name="listView" Margin="0,23,0,0" PreviewKeyDown="listView_PreviewKeyDown">
@@ -13,7 +26,7 @@
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Modified date" DisplayMemberBinding="{Binding ModifiedDate}"/>
-                    <GridViewColumn Header="Size" DisplayMemberBinding="{Binding Size}"/>
+                    <GridViewColumn Header="Size" CellTemplate="{StaticResource cellTemplateSize}"/>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>
                 </GridView>
             </ListView.View>

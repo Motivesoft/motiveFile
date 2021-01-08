@@ -139,6 +139,7 @@ namespace motiveFile
                 listView.Tag = path;
 
                 listView.ItemsSource = items;
+
                 {
                     /*
                     if ( !smallImageList.Images.ContainsKey( dir.FullName ) )

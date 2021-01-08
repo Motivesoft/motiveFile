@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace motiveFile
 {
@@ -32,6 +37,17 @@ namespace motiveFile
         public abstract bool IsTraversible
         {
             get;
+        }
+        public ImageSource Icon
+        {
+            get
+            {
+                return Imaging.CreateBitmapSourceFromHBitmap( 
+                    Icons.GetSmallIcon( FullName, new System.Drawing.Size( 16, 16 ) ).ToBitmap().GetHbitmap(),
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions() );
+            }
         }
         protected string FormatDateTime( DateTime dateTime )
         {

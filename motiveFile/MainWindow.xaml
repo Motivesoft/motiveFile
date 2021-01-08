@@ -8,6 +8,16 @@
         Title="motiveFile" Height="700" Width="600" Loaded="Window_Loaded">
 
     <Window.Resources>
+        <DataTemplate x:Key="cellTemplateName">
+            <DockPanel>
+                <Image Height="16" Width="16" Source="{Binding Path=Icon}"/>
+                <TextBlock Margin="4,0,0,0" HorizontalAlignment="Center" TextAlignment="Left" Width="100">
+                    <TextBlock.Text>
+                        <Binding Path="Name"/>
+                    </TextBlock.Text>
+                </TextBlock>
+            </DockPanel>
+        </DataTemplate>
         <DataTemplate x:Key="cellTemplateSize">
             <DockPanel>
                 <TextBlock HorizontalAlignment="Center" TextAlignment="Right" Width="80">
@@ -24,7 +34,7 @@
         <ListView x:Name="listView" Margin="0,23,0,0" PreviewKeyDown="listView_PreviewKeyDown">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Name" CellTemplate="{StaticResource cellTemplateName}"/>
                     <GridViewColumn Header="Modified date" DisplayMemberBinding="{Binding ModifiedDate}"/>
                     <GridViewColumn Header="Size" CellTemplate="{StaticResource cellTemplateSize}"/>
                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>

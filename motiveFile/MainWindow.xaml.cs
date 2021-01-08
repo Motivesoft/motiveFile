@@ -105,12 +105,44 @@ namespace motiveFile
 
                     foreach ( var dir in Directory.GetDirectories( fullPath ) )
                     {
-                        items.Add( new DirectoryInfoItem( dir ) );
+                        var info = new DirectoryInfoItem( dir );
+
+                        // TODO these can all be configurable
+                        if ( ( info.Attributes & FileAttributes.Hidden ) == FileAttributes.Hidden )
+                        {
+                            continue;
+                        }
+                        if ( ( info.Attributes & FileAttributes.System ) == FileAttributes.System )
+                        {
+                            continue;
+                        }
+                        if ( ( info.Attributes & FileAttributes.ReparsePoint ) == FileAttributes.ReparsePoint )
+                        {
+                            continue;
+                        }
+
+                        items.Add( info );
                     }
 
                     foreach ( var file in Directory.GetFiles( fullPath ) )
                     {
-                        items.Add( new FileInfoItem( file ) );
+                        var info = new FileInfoItem( file );
+
+                        // TODO these can all be configurable
+                        if ( ( info.Attributes & FileAttributes.Hidden ) == FileAttributes.Hidden )
+                        {
+                            continue;
+                        }
+                        if ( ( info.Attributes & FileAttributes.System ) == FileAttributes.System )
+                        {
+                            continue;
+                        }
+                        if ( ( info.Attributes & FileAttributes.ReparsePoint ) == FileAttributes.ReparsePoint )
+                        {
+                            continue;
+                        }
+
+                        items.Add( info );
                     }
 
                     Display( newPath, items );

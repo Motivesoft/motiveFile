@@ -38,7 +38,10 @@ namespace motiveFile
         {
             get;
         }
-
+        public abstract FileAttributes Attributes
+        {
+            get;
+        }
 
         public abstract long SortableModifiedDate
         {
@@ -120,6 +123,14 @@ namespace motiveFile
             }
         }
 
+        public override FileAttributes Attributes
+        {
+            get
+            {
+                return Info.Attributes;
+            }
+        }
+
         public override bool IsTraversible
         {
             get
@@ -198,6 +209,14 @@ namespace motiveFile
             get
             {
                 return Info.FullName;
+            }
+        }
+
+        public override FileAttributes Attributes
+        {
+            get
+            {
+                return Info.Attributes;
             }
         }
 

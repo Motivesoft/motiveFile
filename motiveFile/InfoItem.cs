@@ -256,4 +256,25 @@ namespace motiveFile
             Info = new FileInfo( file );
         }
     }
+
+    public class DriveInfoItem : InfoItem
+    {
+        private readonly DriveInfo Info;
+
+        public override string Name => Info.Name;
+        public override string FullName => Info.IsReady ? Info.VolumeLabel : Info.Name;
+        public override string Size => Info.IsReady ? $"{Info.TotalSize}" : "";
+        public override string Type => Info.DriveType.ToString();
+        public override long SortableSize => Info.IsReady ? Info.TotalSize : 0;
+        public override bool IsTraversible => true;
+        public override string ModifiedDate => "";
+        public override long SortableModifiedDate => 0;
+        public override int SortableInfoType => 2;
+        public override FileAttributes Attributes => FileAttributes.Device;
+
+        public DriveInfoItem( DriveInfo info )
+        {
+            Info = info;
+        }
+    }
 }

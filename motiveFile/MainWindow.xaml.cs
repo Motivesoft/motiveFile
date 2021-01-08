@@ -80,7 +80,35 @@ namespace motiveFile
 
         private void UpdateView( string newPath )
         {
-            if ( Directory.Exists( newPath ) )
+            if ( string.IsNullOrEmpty( newPath ) )
+            {
+                var drives = DriveInfo.GetDrives();
+                var items = new List<InfoItem>();
+
+                foreach ( var drive in drives )
+                {
+                    var info = new DriveInfoItem( drive );
+
+                    // TODO these can all be configurable
+                    if ( ( info.Attributes & FileAttributes.Hidden ) == FileAttributes.Hidden )
+                    {
+                        continue;
+                    }
+                    if ( ( info.Attributes & FileAttributes.System ) == FileAttributes.System )
+                    {
+                        continue;
+                    }
+                    if ( ( info.Attributes & FileAttributes.ReparsePoint ) == FileAttributes.ReparsePoint )
+                    {
+                        continue;
+                    }
+
+                    items.Add( info );
+                }
+
+                Display( newPath, items );
+            }
+            else if ( Directory.Exists( newPath ) )
             {
                 //...
                 var fullPath = newPath;

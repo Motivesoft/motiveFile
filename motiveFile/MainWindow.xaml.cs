@@ -235,11 +235,9 @@ namespace motiveFile
             }
         }
 
-
-        // Global objects
+                // Global objects
         GridViewColumnHeader _lastHeaderClicked = null;
         ListSortDirection _lastDirection = ListSortDirection.Ascending;
-
 
         private void GridViewColumnHeader_Click( object sender, RoutedEventArgs e )
         {
@@ -252,7 +250,7 @@ namespace motiveFile
                 {
                     if ( headerClicked != _lastHeaderClicked )
                     {
-                        direction = ListSortDirection.Ascending;
+                        direction = ListSortDirection.Descending;
                     }
                     else
                     {
@@ -295,9 +293,10 @@ namespace motiveFile
         private void Sort( string sortBy, ListSortDirection direction )
         {
             ICollectionView dataView = CollectionViewSource.GetDefaultView( listView.ItemsSource );
+            SortDescription sd = new SortDescription( sortBy, direction );
 
             dataView.SortDescriptions.Clear();
-            SortDescription sd = new SortDescription( sortBy, direction );
+            dataView.SortDescriptions.Add( new SortDescription( "SortableInfoType", direction ) );
             dataView.SortDescriptions.Add( sd );
             dataView.Refresh();
         }

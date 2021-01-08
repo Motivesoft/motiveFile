@@ -38,6 +38,21 @@ namespace motiveFile
         {
             get;
         }
+
+
+        public abstract long SortableModifiedDate
+        {
+            get;
+        }
+        public abstract long SortableSize
+        {
+            get;
+        }
+        public abstract int SortableInfoType
+        {
+            get;
+        }
+
         public ImageSource Icon
         {
             get
@@ -113,6 +128,28 @@ namespace motiveFile
             }
         }
 
+        public override long SortableModifiedDate
+        {
+            get
+            {
+                return Info.LastWriteTime.Ticks;
+            }
+        }
+        public override long SortableSize
+        {
+            get
+            {
+                return 0;
+            }
+        }
+        public override int SortableInfoType
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
         public DirectoryInfoItem( string directory )
         {
             Info = new DirectoryInfo( directory );
@@ -169,6 +206,29 @@ namespace motiveFile
             get
             {
                 return false;
+            }
+        }
+
+        public override long SortableModifiedDate
+        {
+            get
+            {
+                return Info.LastWriteTime.Ticks;
+            }
+        }
+
+        public override long SortableSize
+        {
+            get
+            {
+                return Info.Length;
+            }
+        }
+        public override int SortableInfoType
+        {
+            get
+            {
+                return 1;
             }
         }
 

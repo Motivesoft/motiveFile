@@ -48,16 +48,16 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn CellTemplate="{StaticResource cellTemplateName}">
-                        <GridViewColumnHeader Content="Name" Name="Name" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                        <GridViewColumnHeader Content="Name" GridViewColumnHeader.Name="Name" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding ModifiedDate}">
-                        <GridViewColumnHeader Content="Modified date" Name="ModifiedDate" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                        <GridViewColumnHeader Content="Modified date" GridViewColumnHeader.Name="SortableModifiedDate" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
                     </GridViewColumn>
                     <GridViewColumn CellTemplate="{StaticResource cellTemplateSize}">
-                        <GridViewColumnHeader Content="Size" Name="Sizee" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                        <GridViewColumnHeader Content="Size" GridViewColumnHeader.Name="SortableSize" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
                     </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Type}">
-                        <GridViewColumnHeader Content="Type" Name="Type" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                        <GridViewColumnHeader Content="Type" GridViewColumnHeader.Name="Type" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>

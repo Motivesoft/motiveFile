@@ -36,6 +36,18 @@ namespace motiveFile
             arguments = args;
 
             InitializeComponent();
+
+            listView.SelectionChanged += delegate ( object sender, SelectionChangedEventArgs e )
+            {
+                var listBoxItem = (ListBoxItem) listView
+                    .ItemContainerGenerator
+                    .ContainerFromItem( listView.SelectedItem );
+
+                if ( listBoxItem != null )
+                {
+                    listBoxItem.Focus();
+                }
+            };
         }
 
         private void Window_Loaded( object sender, RoutedEventArgs e )
@@ -124,72 +136,25 @@ namespace motiveFile
 
         private void Display( string path, List<InfoItem> items )
         {
-            try
+            currentPath = path;
+
+            var from = listView.Tag as string;
+
+            textBox.Text = path;
+            listView.Tag = path;
+
+            listView.ItemsSource = items;
+
+            listView.Focus();
+            listView.UpdateLayout();
+
+            foreach ( var item in items )
             {
-                currentPath = path;
-
-                var from = listView.Tag as string;
-                var focused = false;
-                //var smallIconSize = smallImageList.ImageSize;
-
-                textBox.Text = path;
-                listView.Tag = path;
-
-                listView.ItemsSource = items;
-
+                if ( item.FullName == from )
                 {
-                    /*
-                    if ( !smallImageList.Images.ContainsKey( dir.FullName ) )
-                    {
-                        smallImageList.Images.Add( dir.FullName, Icons.GetSmallIcon( dir.FullName, smallIconSize ) );
-                    }
-                    lvi.ImageKey = dir.FullName;
-                    lvi.Tag = dir;
-
-                    lvi.SubItems.Add( GetDateString( dir.LastWriteTime ) );
-                    lvi.SubItems.Add( "" ); // Size
-                    lvi.SubItems.Add( "File folder" );
-                    */
-                    /*
-                    listView.Items.Add( lvi );
-
-                    if ( dir.FullName == from )
-                    {
-                        focused = true;
-                        lvi.Focus();
-
-                        listView.SelectedItem = lvi;
-                    }
-                    */
+                    listView.SelectedItem = item;
+                    break;
                 }
-
-                /*
-                foreach ( var file in files )
-                {
-                    var lvi = new ListViewItem( file.Name );
-
-                    if ( !smallImageList.Images.ContainsKey( file.FullName ) )
-                    {
-                        smallImageList.Images.Add( file.FullName, Icons.GetSmallIcon( file.FullName, smallIconSize ) );
-                    }
-                    lvi.ImageKey = file.FullName;
-                    lvi.Tag = file;
-
-                    lvi.SubItems.Add( GetDateString( file.LastWriteTime ) );
-                    lvi.SubItems.Add( GetSizeString( file.Length ) ); // Size
-                    lvi.SubItems.Add( GetTypeString( file.Extension ) );
-
-                    listView1.Items.Add( lvi );
-                }
-                */
-                if ( !focused && listView.Items.Count > 0 && listView.Items[ 0 ] is ListViewItem )
-                {
-                    (listView.Items[ 0 ] as ListViewItem).Focus();
-                }
-            }
-            finally
-            {
-                listView.Focus();
             }
         }
 

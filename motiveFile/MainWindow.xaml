@@ -51,9 +51,15 @@
                     <GridViewColumn CellTemplate="{StaticResource cellTemplateName}">
                         <GridViewColumnHeader Content="Name" Name="nameColumn" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
                     </GridViewColumn>
-                    <GridViewColumn Header="Modified date" DisplayMemberBinding="{Binding ModifiedDate}"/>
-                    <GridViewColumn Header="Size" CellTemplate="{StaticResource cellTemplateSize}"/>
-                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ModifiedDate}">
+                        <GridViewColumnHeader Content="Modified date" Name="dateColumn" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                    </GridViewColumn>
+                    <GridViewColumn CellTemplate="{StaticResource cellTemplateSize}">
+                        <GridViewColumnHeader Content="Size" Name="sizeColumn" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Type}">
+                        <GridViewColumnHeader Content="Type" Name="typeColumn" HorizontalContentAlignment="Left" Click="GridViewColumnHeader_Click"/>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

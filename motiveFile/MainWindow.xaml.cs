@@ -58,7 +58,6 @@ namespace motiveFile
             }
 
             UpdateView( initialPath );
-            listView.Focus();
         }
 
         private void UpdateView( string newPath )
@@ -190,6 +189,7 @@ namespace motiveFile
             }
             finally
             {
+                listView.Focus();
             }
         }
 
@@ -263,6 +263,10 @@ namespace motiveFile
             else if ( e.Key == Key.Down )
             {
                 listView.Focus();
+            }
+            else if ( e.Key == Key.Enter || e.Key == Key.Return )
+            {
+                UpdateView( textBox.Text );
             }
         }
     }

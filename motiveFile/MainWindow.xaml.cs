@@ -237,7 +237,6 @@ namespace motiveFile
 
 
         // Global objects
-        BindingListCollectionView blcv;
         GridViewColumnHeader _lastHeaderClicked = null;
         ListSortDirection _lastDirection = ListSortDirection.Ascending;
 
@@ -246,7 +245,7 @@ namespace motiveFile
         {
             GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
             ListSortDirection direction;
-
+            
             if ( headerClicked != null )
             {
                 if ( headerClicked.Role != GridViewColumnHeaderRole.Padding )
@@ -267,8 +266,8 @@ namespace motiveFile
                         }
                     }
 
-                    string header = headerClicked.Column.Header as string;
-                    //Sort( header, direction );
+                    string header = headerClicked.Content as string;
+                    Sort( header, direction );
 
                     if ( direction == ListSortDirection.Ascending )
                     {
@@ -295,10 +294,12 @@ namespace motiveFile
         // Sort code
         private void Sort( string sortBy, ListSortDirection direction )
         {
-            blcv.SortDescriptions.Clear();
+            ICollectionView dataView = CollectionViewSource.GetDefaultView( listView.ItemsSource );
+
+            dataView.SortDescriptions.Clear();
             SortDescription sd = new SortDescription( sortBy, direction );
-            blcv.SortDescriptions.Add( sd );
-            blcv.Refresh();
+            dataView.SortDescriptions.Add( sd );
+            dataView.Refresh();
         }
     }
 }

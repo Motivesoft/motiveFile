@@ -64,6 +64,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FileTypes.cs" />
     <Compile Include="Icons.cs" />
     <Compile Include="InfoItem.cs" />
     <Compile Include="MainWindow.xaml.cs">

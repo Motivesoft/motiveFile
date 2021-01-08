@@ -85,7 +85,7 @@ namespace motiveFile
         {
             get
             {
-                return "";
+                return "File folder";
             }
         }
 
@@ -152,8 +152,7 @@ namespace motiveFile
         {
             get
             {
-                // TODO finish this
-                return Info.Extension;
+                return FileTypes.GetFileTypeDescription( FullName );
             }
         }
 

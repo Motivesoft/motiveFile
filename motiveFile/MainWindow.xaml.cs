@@ -32,6 +32,11 @@ namespace motiveFile
 
         private bool altKeyDown = false;
 
+        // Objects for sorting
+        private GridViewColumnHeader _lastHeaderClicked = null;
+
+        private ListSortDirection _lastDirection = ListSortDirection.Ascending;
+
         public MainWindow( string[] args )
         {
             arguments = args;
@@ -235,10 +240,6 @@ namespace motiveFile
             }
         }
 
-                // Global objects
-        GridViewColumnHeader _lastHeaderClicked = null;
-        ListSortDirection _lastDirection = ListSortDirection.Ascending;
-
         private void GridViewColumnHeader_Click( object sender, RoutedEventArgs e )
         {
             GridViewColumnHeader headerClicked = e.OriginalSource as GridViewColumnHeader;
@@ -264,8 +265,7 @@ namespace motiveFile
                         }
                     }
 
-                    string header = headerClicked.Name;
-                    Sort( header, direction );
+                    Sort( headerClicked.Name, direction );
 
                     if ( direction == ListSortDirection.Ascending )
                     {
@@ -285,7 +285,6 @@ namespace motiveFile
                     _lastHeaderClicked = headerClicked;
                     _lastDirection = direction;
                 }
-
             }
         }
 
@@ -296,8 +295,12 @@ namespace motiveFile
             SortDescription sd = new SortDescription( sortBy, direction );
 
             dataView.SortDescriptions.Clear();
-            dataView.SortDescriptions.Add( new SortDescription( "SortableInfoType", direction ) );
+
+            // Sort by folder/file and by the passed object
+            // We can either sort both using the same 'direction', or force the folders to stay on top
+            dataView.SortDescriptions.Add( new SortDescription( "SortableInfoType", ListSortDirection.Ascending ) );
             dataView.SortDescriptions.Add( sd );
+            
             dataView.Refresh();
         }
     }
